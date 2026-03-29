@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+@import 'tailwindcss';
+
+/* Class-based dark mode (toggle sets `class="dark"` on <html>) */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-background: #f8fafc;
+  --color-foreground: #0f172a;
+  --color-muted-foreground: #64748b;
+}
+
+@layer base {
+  body {
+    margin: 0;
+    overflow-x: hidden;
+  }
+
+  #root {
+    min-height: 100svh;
+    width: 100%;
+    overflow-x: hidden;
+    max-width: none;
+    margin: 0;
+    text-align: initial;
+    border: none;
+    display: block;
+  }
+
+  .font-jakarta {
+    font-family:
+      'Plus Jakarta Sans',
+      ui-sans-serif,
+      system-ui,
+      -apple-system,
+      'Segoe UI',
+      Roboto,
+      'Helvetica Neue',
+      Arial,
+      'Noto Sans',
+      sans-serif;
+  }
+}
