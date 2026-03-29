@@ -9,9 +9,10 @@ node_modules/
 backend/.env.example
 frontend/.env.example
 
-# Firebase service account keys
+# Firebase service account keys and configs
 serviceAccount.json
 **/serviceAccount.json
+firestore.rules
 
 # IDE/Editor files
 .DS_Store
