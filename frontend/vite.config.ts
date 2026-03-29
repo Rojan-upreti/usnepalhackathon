@@ -134,6 +134,7 @@ export default defineConfig(({ mode }) => {
     },
     /** Without this, `npm run preview` serves `/api/...` as index.html → JSON parse errors. */
     preview: {
+      allowedHosts: ['usnepalhackathon.onrender.com', 'localhost'],
       proxy: apiProxy,
     },
   }
