@@ -124,7 +124,8 @@ function JourneyPreviewSection() {
       if (ring) gsap.set(ring, { strokeDashoffset: RING_OFFSET })
       const counterEl = root.querySelector('.jfp-counter')
       if (counterEl) counterEl.textContent = SLEEP_HOURS_LAST_NIGHT.toFixed(1)
-      gsap.set(['.easeup-hero-headline', '.easeup-hero-body', '.easeup-hero-display'], {
+      const heroEls = root.querySelectorAll('.easeup-hero-headline, .easeup-hero-body, .easeup-hero-display')
+      gsap.set(heroEls, {
         autoAlpha: 1,
         y: 0,
         scale: 1,
@@ -162,7 +163,8 @@ function JourneyPreviewSection() {
         defaults: { ease: 'expo.out' },
         scrollTrigger: {
           trigger: root,
-          start: 'top 78%',
+          /** `top 78%` often never fires for heroes at the top of the page (top edge never crosses that line while scrolling down), leaving copy stuck at opacity 0. */
+          start: 'top bottom',
           end: 'bottom top',
           toggleActions: 'play none none none',
           once: true,
@@ -470,12 +472,12 @@ function JourneyPreviewSection() {
 
         <div className="z-20 -mt-[1in] flex w-full max-w-full shrink-0 flex-col justify-center text-center lg:order-1 lg:max-w-none lg:text-left">
           <h3 className="easeup-hero-headline will-change-[transform,opacity,filter] mb-0 text-2xl font-bold tracking-tight text-slate-900 md:text-3xl lg:mb-5 lg:text-4xl">
-            Burnout down. Schedule, sorted.
+            Cut uncertainty. Tame overload. Protect rest.
           </h3>
           <p className="easeup-hero-body will-change-[transform,opacity,filter] mx-auto hidden max-w-sm text-sm font-normal leading-relaxed text-slate-600 md:block md:text-base lg:mx-0 lg:max-w-none lg:text-lg">
-            <span className="font-semibold text-slate-900">EaseUp</span> helps students and professionals care for mental
-            health by uniting calendars, Health data, and tools like Canvas. AI surfaces burnout risk early and helps you
-            rebalance the week before it breaks you.
+            <span className="font-semibold text-slate-900">EaseUp</span> is for career and academic pressure: internships,
+            exams, back-to-back meetings, and the anxiety of “am I falling behind?” Unite calendars, LMS deadlines, and
+            health-style signals in one dashboard—then act before burnout becomes your default.
           </p>
         </div>
       </div>
@@ -513,8 +515,8 @@ export function EaseUpFooter() {
               <span className="text-lg font-semibold tracking-tight text-white">EaseUp</span>
             </div>
             <p className="mt-5 max-w-sm text-sm leading-relaxed text-slate-400">
-              Mental-health-aware scheduling for students and professionals—see overload early, protect rest, and
-              reshape the week before burnout wins.
+              Hackathon demo: mental-health-aware scheduling for students and professionals—surface overload, log mood over
+              time, set a weekly focus, and nudge healthier boundaries before burnout wins.
             </p>
           </div>
 

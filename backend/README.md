@@ -5,6 +5,8 @@ Express server for:
 1. **`GET /api/config/firebase-web`** — Serves the Firebase **web app** config from **server env only** (so the frontend repo does not contain `apiKey` / `appId`). The browser still receives these values after one request; that is required for Firebase Auth’s client SDK. The **service account** is separate and never sent here.
 2. **`POST /api/auth/verify`** — Verifies a Firebase **ID token** with Admin SDK (optional).
 3. **`GET /api/health`** — Liveness check.
+4. **`POST /api/career/analyze`** — `Authorization: Bearer <Firebase ID token>`, JSON `{ "resumeText": "…" }`. Calls **Anthropic** (`ANTHROPIC_API_KEY` in `.env` only) and returns `{ ok, insight }` JSON. No resume storage on this route.
+5. **`GET /api/career/ping`** — Health check for the career router.
 
 ## Setup
 
@@ -17,6 +19,8 @@ npm run dev
 ```
 
 For token verification, set **`FIREBASE_SERVICE_ACCOUNT_JSON`** to the full JSON string of a Firebase **service account** key (Project settings → Service accounts → Generate new private key). Do not commit that key.
+
+For **resume analysis**, set **`ANTHROPIC_API_KEY`** in `backend/.env`. Optional: **`ANTHROPIC_MODEL`** (default `claude-3-5-haiku-20241022`).
 
 ## Frontend
 

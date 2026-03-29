@@ -2,6 +2,7 @@ import { cn } from '@/lib/utils'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { type HTMLAttributes, useEffect, useRef } from 'react'
+import { Link } from 'react-router-dom'
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger)
@@ -195,6 +196,9 @@ export interface CinematicHeroProps extends HTMLAttributes<HTMLDivElement> {
   integrationsHint?: string
   ctaHeading?: string
   ctaDescription?: string
+  /** Primary web CTA (e.g. sign-in to reach the dashboard). Omit `webCtaTo` to hide. */
+  webCtaTo?: string
+  webCtaLabel?: string
 }
 
 export function CinematicHero({
@@ -205,6 +209,8 @@ export function CinematicHero({
   ctaHeading = 'Balance work, sleep, and goals.',
   ctaDescription =
     'Connect Google or Microsoft Calendar, optional canvas data, and Apple Health–style metrics. Get a weekly burnout readout, smarter scheduling, and an AI coach that notices late nights before you do.',
+  webCtaTo = '/login',
+  webCtaLabel = 'Sign in — open your dashboard',
   className,
   ...props
 }: CinematicHeroProps) {
@@ -319,8 +325,19 @@ export function CinematicHero({
         <h2 className="text-silver-matte mb-6 text-4xl font-bold tracking-tight md:text-6xl lg:text-7xl">
           {ctaHeading}
         </h2>
-        <p className="text-muted-foreground mx-auto mb-12 max-w-xl text-lg font-light leading-relaxed md:text-xl">
+        <p className="text-muted-foreground mx-auto mb-10 max-w-xl text-lg font-light leading-relaxed md:text-xl">
           {ctaDescription}
+        </p>
+        {webCtaTo ? (
+          <Link
+            to={webCtaTo}
+            className="btn-modern-light mb-10 inline-flex items-center justify-center rounded-[1.25rem] px-10 py-4 text-base font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-background"
+          >
+            {webCtaLabel}
+          </Link>
+        ) : null}
+        <p className="text-muted-foreground mb-6 text-xs font-medium uppercase tracking-widest opacity-80">
+          Mobile apps (coming soon)
         </p>
         <div className="flex flex-col gap-6 sm:flex-row">
           <a

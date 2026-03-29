@@ -1,1 +1,19 @@
 node_modules/
+
+# Environment files - never commit credentials
+.env
+.env.local
+.env.*.local
+.env.development
+.env.example
+backend/.env.example
+frontend/.env.example
+
+# Firebase service account keys
+serviceAccount.json
+**/serviceAccount.json
+
+# IDE/Editor files
+.DS_Store
+.vscode/
+.idea/

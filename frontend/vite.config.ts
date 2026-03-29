@@ -6,6 +6,8 @@ import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
 import type { ViteDevServer } from 'vite'
 import { defineConfig } from 'vite'
+// ESM helper in repo root `scripts/` — no TS types on `.mjs` (Node resolves at dev/build time).
+// @ts-expect-error TS7016 — missing typedefs for resolve-api-port.mjs
 import { resolveApiPort } from '../scripts/resolve-api-port.mjs'
 
 const DEV_APP_PORT = 3000
@@ -85,7 +87,29 @@ export default defineConfig(({ mode }) => {
         }
       : null
 
+  /** Same proxy for `vite` dev and `vite preview` so `/api/*` never falls through to SPA index.html. */
+  const apiProxy = {
+    '/api': {
+      target: `http://localhost:${apiPort}`,
+      changeOrigin: true,
+      configure(proxy: { on: (ev: string, fn: (...args: unknown[]) => void) => void }) {
+        proxy.on('error', (_err, _req, res) => {
+          const msg = `Cannot reach the API at http://localhost:${apiPort}. Start the backend (cd backend && npm run dev), or from the repo root: npm run dev — then open http://localhost:${DEV_APP_PORT}`
+          const r = res as ServerResponse | undefined
+          if (r && typeof r.writeHead === 'function' && !r.headersSent) {
+            r.writeHead(502, { 'Content-Type': 'text/plain; charset=utf-8' })
+            r.end(msg)
+          }
+        })
+      },
+    },
+  }
+
   return {
+    /** Same port as proxy — client uses this for direct `fetch` on localhost (avoids proxy → index.html issues). */
+    define: {
+      __EASEUP_DEV_API_PORT__: JSON.stringify(String(apiPort)),
+    },
     plugins: [react(), tailwindcss(), ...(easeupAutoBackend ? [easeupAutoBackend] : [])],
     resolve: {
       alias: {
@@ -106,22 +130,11 @@ export default defineConfig(({ mode }) => {
         port: DEV_APP_PORT,
         clientPort: DEV_APP_PORT,
       },
-      proxy: {
-        '/api': {
-          target: `http://localhost:${apiPort}`,
-          changeOrigin: true,
-          configure(proxy) {
-            proxy.on('error', (_err, _req, res) => {
-              const msg = `Cannot reach the API at http://localhost:${apiPort}. Start the backend (cd backend && npm run dev), or from the repo root: npm run dev — then open http://localhost:${DEV_APP_PORT}`
-              const r = res as ServerResponse | undefined
-              if (r && typeof r.writeHead === 'function' && !r.headersSent) {
-                r.writeHead(502, { 'Content-Type': 'text/plain; charset=utf-8' })
-                r.end(msg)
-              }
-            })
-          },
-        },
-      },
+      proxy: apiProxy,
+    },
+    /** Without this, `npm run preview` serves `/api/...` as index.html → JSON parse errors. */
+    preview: {
+      proxy: apiProxy,
     },
   }
 })

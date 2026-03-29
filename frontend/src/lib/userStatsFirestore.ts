@@ -40,3 +40,29 @@ export async function writeUserCollegeName(uid: string, collegeName: string): Pr
     { merge: true },
   )
 }
+
+/** One line the user chooses to cut uncertainty (“this week I focus on…”). */
+export async function writeWeeklyFocus(uid: string, text: string): Promise<void> {
+  await setDoc(
+    userStatsDocRef(uid),
+    {
+      weeklyFocus: text.trim().slice(0, 500),
+      updatedAt: serverTimestamp(),
+    },
+    { merge: true },
+  )
+}
+
+/**
+ * Preferred “wind-down” boundary: flag calendar items starting at or after this hour (0–23, local).
+ * Used for gentle nudges only.
+ */
+export async function writeWindDownHourAfter(uid: string, hour: number | null): Promise<void> {
+  const payload: Record<string, unknown> = { updatedAt: serverTimestamp() }
+  if (hour == null || Number.isNaN(hour)) {
+    payload.windDownHourAfter = null
+  } else {
+    payload.windDownHourAfter = Math.min(23, Math.max(0, Math.round(hour)))
+  }
+  await setDoc(userStatsDocRef(uid), payload, { merge: true })
+}

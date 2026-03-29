@@ -6,9 +6,14 @@ import DashboardPage from '@/pages/DashboardPage'
 import MyCalendarPage from '@/pages/MyCalendarPage'
 import HomePage from '@/pages/HomePage'
 import LoginPage from '@/pages/LoginPage'
+import CareerCoachLayout from '@/pages/CareerCoachLayout'
+import CareerCoachDashboardPage from '@/pages/CareerCoachDashboardPage'
+import CareerCoachIndexPage from '@/pages/CareerCoachIndexPage'
 import CollegeLmsPage from '@/pages/CollegeLmsPage'
 import MyHealthPage from '@/pages/MyHealthPage'
 import MySleepPage from '@/pages/MySleepPage'
+import GoalsPage from '@/pages/GoalsPage'
+import InsightPage from '@/pages/InsightPage'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 
 function CatchAllRoute() {
@@ -72,6 +77,33 @@ export default function App() {
               element={
                 <ProtectedRoute>
                   <CollegeLmsPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/careercoach"
+              element={
+                <ProtectedRoute>
+                  <CareerCoachLayout />
+                </ProtectedRoute>
+              }
+            >
+              <Route index element={<CareerCoachIndexPage />} />
+              <Route path="dashboard" element={<CareerCoachDashboardPage />} />
+            </Route>
+            <Route
+              path="/goals"
+              element={
+                <ProtectedRoute>
+                  <GoalsPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/insight"
+              element={
+                <ProtectedRoute>
+                  <InsightPage />
                 </ProtectedRoute>
               }
             />

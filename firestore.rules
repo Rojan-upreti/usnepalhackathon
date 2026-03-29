@@ -7,6 +7,11 @@ service cloud.firestore {
       allow read, write: if request.auth != null && request.auth.uid == userId;
     }
 
+    // Daily mood + wellness score for trends (see wellnessFirestore.ts)
+    match /users/{userId}/wellness_mood/{docId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+
     // College LMS mock integration + imported calendar events (see lmsFirestore.ts)
     match /users/{userId}/lms_integration/{docId} {
       allow read, write: if request.auth != null && request.auth.uid == userId;
@@ -28,6 +33,17 @@ service cloud.firestore {
       allow read, write: if request.auth != null && request.auth.uid == userId;
     }
     match /users/{userId}/google_calendar_events/{eventId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // Career Coach: resume + lastInsight written only by backend (Admin SDK). Client may read own data.
+    match /users/{userId}/career_coach/{docId} {
+      allow read: if request.auth != null && request.auth.uid == userId;
+      allow write: if false;
+    }
+
+    // Goals hub: user-set goals from insight templates (see goalsFirestore.ts)
+    match /users/{userId}/user_goals/{goalId} {
       allow read, write: if request.auth != null && request.auth.uid == userId;
     }
 

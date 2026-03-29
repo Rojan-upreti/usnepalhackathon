@@ -5,6 +5,7 @@ import dotenv from 'dotenv'
 import cors from 'cors'
 import express from 'express'
 import admin from 'firebase-admin'
+import { careerRouter } from './careerRoutes.js'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const envPath = path.resolve(__dirname, '../.env')
@@ -13,7 +14,7 @@ dotenv.config({ path: envPath, override: true })
 
 const app = express()
 app.use(cors({ origin: true }))
-app.use(express.json())
+app.use(express.json({ limit: '512kb' }))
 
 /** Public web SDK fields only (same as Firebase Console → Web app). Not the service account. */
 app.get('/api/config/firebase-web', (_req, res) => {
@@ -77,6 +78,8 @@ function initFirebaseAdmin() {
 }
 
 initFirebaseAdmin()
+
+app.use('/api/career', careerRouter)
 
 app.get('/api/health', (_req, res) => {
   res.json({ ok: true, admin: admin.apps.length > 0 })

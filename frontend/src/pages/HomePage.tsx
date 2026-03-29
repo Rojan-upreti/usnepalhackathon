@@ -48,7 +48,16 @@ export default function HomePage() {
     <>
       <EaseUpLandingPage />
       <div className="min-h-screen w-full overflow-x-hidden">
-        <CinematicHero />
+        <CinematicHero
+          tagline1="Career pressure, school load, and uncertainty don’t stay in separate apps."
+          tagline2="EaseUp turns your calendar and health into one honest picture."
+          integrationsHint="Connect calendars, LMS coursework, and health-style metrics so you can see overload, protect rest, and choose what matters this week—not after burnout shows up."
+          integrationsLabel="Built to plug into how you already work and study"
+          ctaHeading="See the week before it breaks you."
+          ctaDescription="Students juggling deadlines; professionals buried in meetings—both need clarity. Sign in for a dashboard that blends schedule load, sleep, mood trends, and one weekly focus so you can rebalance with intention."
+          webCtaTo="/login"
+          webCtaLabel="Sign in — open your dashboard"
+        />
       </div>
       <EaseUpFooter />
     </>

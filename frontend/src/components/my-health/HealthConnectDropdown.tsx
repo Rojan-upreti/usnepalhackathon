@@ -2,6 +2,9 @@ import { Link2 } from 'lucide-react'
 import { useEffect, useId, useLayoutEffect, useRef, useState, type ReactElement, type RefObject } from 'react'
 import { createPortal } from 'react-dom'
 
+/** Match dashboard Overview primary accent */
+const SAGE = '#95B18E'
+
 export type HealthConnectDropdownProps = {
   open: boolean
   onClose: () => void
@@ -167,7 +170,7 @@ export function HealthConnectDropdown({ open, onClose, onConnected, anchorRef }:
       role="dialog"
       aria-modal="true"
       aria-label="Connect a health app"
-      className="fixed z-[100] rounded-xl border border-gray-200 bg-white py-1 shadow-xl dark:border-gray-700 dark:bg-gray-900"
+      className="fixed z-[100] rounded-2xl border border-gray-200/90 bg-white py-1 shadow-[0_12px_32px_-8px_rgba(0,0,0,0.12)] dark:border-gray-800 dark:bg-gray-900"
       style={{
         top: coords.top,
         left: coords.left,
@@ -190,10 +193,9 @@ export function HealthConnectDropdown({ open, onClose, onConnected, anchorRef }:
                     setInlineStatus(null)
                   }}
                   className={`flex w-full items-center gap-3 px-3 py-2.5 text-left transition ${
-                    isOn
-                      ? 'bg-emerald-50 dark:bg-emerald-950/40'
-                      : 'hover:bg-gray-50 dark:hover:bg-gray-800/60'
+                    isOn ? '' : 'hover:bg-gray-50 dark:hover:bg-gray-800/60'
                   }`}
+                  style={isOn ? { backgroundColor: `${SAGE}24` } : undefined}
                 >
                   <Logo className="h-8 w-8 shrink-0 rounded-md" />
                   <span className="min-w-0 flex-1">
@@ -211,7 +213,8 @@ export function HealthConnectDropdown({ open, onClose, onConnected, anchorRef }:
             type="button"
             disabled={!selected}
             onClick={finishConnect}
-            className="inline-flex items-center gap-1.5 rounded-lg bg-emerald-600 px-3 py-2 text-xs font-semibold text-white shadow-sm transition hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-emerald-600 dark:hover:bg-emerald-500"
+            className="inline-flex items-center gap-1.5 rounded-lg px-3 py-2 text-xs font-semibold text-white shadow-sm transition hover:brightness-105 disabled:cursor-not-allowed disabled:opacity-50"
+            style={{ backgroundColor: SAGE }}
           >
             <Link2 className="h-3.5 w-3.5" aria-hidden />
             Finish connect
@@ -227,7 +230,11 @@ export function HealthConnectDropdown({ open, onClose, onConnected, anchorRef }:
 
         {inlineStatus ? (
           <p
-            className="mx-3 mt-2 rounded-lg border border-emerald-200 bg-emerald-50/90 px-2.5 py-2 text-xs text-emerald-900 dark:border-emerald-900/40 dark:bg-emerald-950/40 dark:text-emerald-100"
+            className="mx-3 mt-2 rounded-lg border px-2.5 py-2 text-xs text-gray-800 dark:text-gray-100"
+            style={{
+              borderColor: `${SAGE}55`,
+              backgroundColor: `${SAGE}18`,
+            }}
             role="status"
           >
             {inlineStatus}
