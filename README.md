@@ -5,7 +5,7 @@
 Combining calendar load, sleep insights, health signals, and AI career guidance—so students and professionals see overload early, protect recovery, and navigate uncertainty with confidence.
 
 ---
-
+<img width="8192" height="4206" alt="AI-Driven Career and Health-2026-03-29-131415" src="https://github.com/user-attachments/assets/bf525188-ccff-43d1-a320-9291631aa265" />
 ## Table of Contents
 
 - [Overview](#overview)
@@ -34,7 +34,7 @@ EaseUp integrates schedule, wellness, and career insights into one intelligent d
 - **Students**: Balancing courses, deadlines, extracurriculars, and career planning
 - **Professionals**: Managing calendars, workload, goal-setting, and career growth
 - **Educators/Advisors**: Identifying at-risk students and supporting wellness proactively
-<img width="8192" height="4206" alt="AI-Driven Career and Health-2026-03-29-131415" src="https://github.com/user-attachments/assets/bf525188-ccff-43d1-a320-9291631aa265" />
+
 
 ---
 
