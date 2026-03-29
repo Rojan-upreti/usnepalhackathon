@@ -428,9 +428,10 @@ The mobile app (iOS/Android) shares the same backend:
 3. **Build Settings:**
    - Root Directory: `frontend`
    - Build Command: `npm install && npm run build`
-   - Start Command: `npm run preview`
+   - Start Command: `PORT=4173 npm run preview`
 4. **Environment Variables:**
    ```
+   PORT=4173
    VITE_API_URL=https://easeup-backend.render.com
    ```
 5. Deploy

@@ -10,7 +10,7 @@
     "dev:no-auto-api": "VITE_NO_AUTO_API=1 node ../scripts/ensure-api-then-vite.mjs",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview --host 0.0.0.0 --port ${PORT:-4173}"
   },
   "dependencies": {
     "class-variance-authority": "^0.7.1",
