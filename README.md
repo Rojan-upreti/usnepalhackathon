@@ -1,4 +1,6 @@
 # EaseUp
+Project URL: https://usnepalhackathon.onrender.com/ or,
+http://www.easeup.rojanupreti.com/
 
 **Your All-in-One Dashboard for Schedule, Mental Wellness, and Career Clarity**
 
